@@ -1,4 +1,4 @@
-#models.py
+# models.py
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -13,7 +13,8 @@ class Post(models.Model):
         on_delete=models.CASCADE,
         related_name='posts'
     )
-    group = models.ForeignKey('Group', blank=True, null=True, on_delete=models.CASCADE)
+    group = models.ForeignKey('Group', blank=True,
+            null=True, on_delete=models.CASCADE)
 
 
 class Group(models.Model):

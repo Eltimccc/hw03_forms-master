@@ -20,4 +20,4 @@ urlpatterns = [
     # импорт правил из приложения posts
     path('', include('posts.urls')),
     path('admin/', admin.site.urls),
-] 
+]

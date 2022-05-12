@@ -1,13 +1,15 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Post, Group
 
+
 def index(request):
     posts = Post.objects.order_by('-pub_date')[:10]
     context = {
         'posts': posts,
-    }
-    return render(request, 'posts/index.html', context) 
-    
+        }
+
+    return render(request, 'posts/index.html', context)
+
     # template = 'posts/index.html'
     # title = 'Это главная страница проекта Yatube'
     # context = { 'title': title, }
@@ -29,4 +31,5 @@ def group_posts(request, slug):
         'group': group,
         'posts': posts,
     }
-    return render(request, 'posts/group_list.html', context) 
+
+    return render(request, 'posts/group_list.html', context)
