@@ -14,7 +14,8 @@ class Post(models.Model):
         related_name='posts'
     )
     group = models.ForeignKey('Group', blank=True,
-            null=True, on_delete=models.CASCADE)
+                              null=True, 
+                              on_delete=models.CASCADE)
 
 
 class Group(models.Model):
