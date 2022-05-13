@@ -13,10 +13,15 @@ class Post(models.Model):
         on_delete=models.CASCADE,
         related_name='posts'
     )
-    group = models.ForeignKey('Group', blank=True,
-                              null=True,
-                              on_delete=models.CASCADE)
+    group = models.ForeignKey(
+        'Group',
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name='posts')
 
+    class Meta:
+        ordering = ['pub_date']
 
 class Group(models.Model):
     title: str = models.CharField(max_length=200)
@@ -25,3 +30,4 @@ class Group(models.Model):
 
     def __str__(self):
         return self.title
+
