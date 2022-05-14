@@ -23,6 +23,7 @@ class Post(models.Model):
     class Meta:
         ordering = ['pub_date']
 
+
 class Group(models.Model):
     title: str = models.CharField(max_length=200)
     slug = models.SlugField(max_length=150, unique=True)
@@ -30,4 +31,4 @@ class Group(models.Model):
 
     def __str__(self):
         return self.title
-
+        
