@@ -1,12 +1,15 @@
 <!DOCTYPE html> <!-- Используется html 5 версии -->
 {% extends 'base.html' %}
+{% block title %}
+Лев Толстой – зеркало русской революции.
+{% endblock %}
 {% block content %}
-  <title>{{ title }}</title>
+  <h1> Лев Толстой – зеркало русской революции. </h1>
+    <p>Группа тайных поклонников графа.</p>
   <body>
     <!-- класс py-5 создает отступы сверху и снизу блока -->
-    <div class="container py-5">
-      <a href="{% url 'index' %}">Главная страница
-      </a>
+    
+      <a href="{% url 'index' %}">Главная страница</a>
     {% for post in posts %}
   <ul>
     <li>
@@ -16,7 +19,7 @@
       Дата публикации: {{ post.pub_date|date:"d E Y" }}
     </li>
   </ul>
-  <p>{{ post.text }}</p>    
+  <p>{{ post.text|linebreaks }}</p>    
   <a href=" ">все записи группы</a>
   
   {% if not forloop.last %}<hr>{% endif %}
