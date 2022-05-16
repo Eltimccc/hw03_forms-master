@@ -5,10 +5,9 @@
 {% endblock %}
 {% block content %}
   <h1> {{ group.title }} </h1>
-    <p>Группа тайных поклонников графа.</p>
   <body>
     <!-- класс py-5 создает отступы сверху и снизу блока -->
-      <a href="{% url 'index' %}">Главная страница</a>
+    <a href="{% url 'index' %}">Главная страница</a>
     {% for post in posts %}
   <ul>
     <li>
