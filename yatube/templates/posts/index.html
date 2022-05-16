@@ -4,14 +4,13 @@
   Последние обновления на сайте
 {% endblock %}
 
-{% if post.group %}   
-  <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
-{% endif %}
-
-  
   {% block content %}
-    <h1>Последние обновления на сайте</h1>      
+  <h1>Последние обновления на сайте</h1>
+  {% if post.group %}   
+  <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы!</a>
+  {% endif %}
   {% for post in posts %}
+  
   <ul>
     <li>
       Автор: {{ post.author.get_full_name }}
@@ -22,7 +21,6 @@
   </ul>
   <p>{{ post.text|linebreaks }}</p>    
   <a href=" ">все записи группы</a>
-  
   {% if not forloop.last %}<hr>{% endif %}
   {% endfor %}
 {% endblock %}
