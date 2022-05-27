@@ -29,11 +29,12 @@ urlpatterns = [
         name='login'
     ),
     path(
-        'password-reset/', 
+        'password_reset/', 
         PasswordResetView.as_view(
-        template_name='users/password_reset_form.html')),
+        template_name='users/password_reset_form.html'), 
+        name = 'reset_pwd'),
     path(
-        'password-reset/done/', 
+        'password_reset/done/', 
         PasswordResetDoneView.as_view(
         template_name='users/password_reset_done.html')),
     path(
