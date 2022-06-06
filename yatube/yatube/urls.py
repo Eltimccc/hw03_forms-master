@@ -11,4 +11,5 @@ urlpatterns = [
     path('', include('posts.urls', namespace='posts')),
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
+    path('about/', include('about.urls', namespace='about')),
 ]

@@ -27,3 +27,25 @@ def group_posts(request, slug):
     }
 
     return render(request, 'posts/group_list.html', context)
+
+
+def profile(request, username):
+    post_list = Post.objects.filter(author__username=username).order_by('-pub_date')
+    paginator = Paginator(post_list, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    # Здесь код запроса к модели и создание словаря контекста
+    context = {
+        'posts': Post.objects.filter(author__username=username)[:10],
+        'post_count' : Post.objects.filter(author__username=username).count(),
+        'page_obj': page_obj,
+    }
+    return render(request, 'posts/profile.html', context)
+
+
+def post_detail(request, post_id):
+    # Здесь код запроса к модели и создание словаря контекста
+    context = {
+        
+    }
+    return render(request, 'posts/post_detail.html', context) 

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block title %}Просмотр профиля {{ user }} {% endblock %}
+{% block header %}Просмотр профиля {{ user }} {% endblock %}
+{% block content %}
+    <main>
+      <div class="container py-5"> 
+        <h1> Все посты пользователя {{ user }} </h1>
+        <h3>Всего постов: {{ post_count }} </h3>   
+          <article>
+            <ul>
+              <li>
+                <h5> Автор: {{ user }} </h5>
+                <a href= ''>все посты пользователя {{ user }}</a>
+              </li>
+              {% for post in posts %}
+              <ul>
+                <li>
+                  Автор: {{ post.author }}
+                </li>
+                <li>
+                  Дата публикации: {{ post.pub_date|date:"d E Y" }}
+                </li>
+              </ul>
+              <p>{{ post.text|linebreaks }}</p>
+              {% if not forloop.last %}<hr>{% endif %}
+              {% endfor %}
+          </ul>
+          <p> 
+          </p>
+          <a href="<!-- -->">подробная информация </a>
+        </article>       
+        <a href="<!-- -->">все записи группы</a>        
+        <hr>
+        <!-- Остальные посты. после последнего нет черты -->
+        <!-- Здесь подключён паджинатор -->
+        {% include '../includes/paginator.html' %}  
+      </div>
+    </main>
+  </body>
+</html>
+{% endblock %}
