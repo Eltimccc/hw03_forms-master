@@ -31,6 +31,7 @@ def group_posts(request, slug):
 
 def profile(request, username):
     post_list = Post.objects.filter(author__username=username).order_by('-pub_date')
+    aut = author__username=username
     paginator = Paginator(post_list, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -39,13 +40,18 @@ def profile(request, username):
         'posts': Post.objects.filter(author__username=username)[:10],
         'post_count' : Post.objects.filter(author__username=username).count(),
         'page_obj': page_obj,
+        'user_post' : Post.objects.filter(author__username=username),
+        'creator': aut
     }
     return render(request, 'posts/profile.html', context)
 
 
 def post_detail(request, post_id):
     # Здесь код запроса к модели и создание словаря контекста
+    post = Post.objects.get(pk=post_id)
+    post_cnt = post.author.posts.count()
     context = {
-        
+        'post' : Post.objects.get(pk=post_id),
+        'post_cnt' : post_cnt,
     }
     return render(request, 'posts/post_detail.html', context) 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% extends "base.html" %}
-{% block title %}Просмотр профиля {{ user }} {% endblock %}
-{% block header %}Просмотр профиля {{ user }} {% endblock %}
+{% block title %}Профайл пользвателя {{ user }} {% endblock %}
+{% block header %}Профайл пользователя {{ user }} {% endblock %}
 {% block content %}
     <main>
       <div class="container py-5"> 
@@ -10,7 +10,7 @@
           <article>
             <ul>
               <li>
-                <h5> Автор: {{ user }} </h5>
+                <h5> Автор: {{ creator }} </h5>
                 <a href= ''>все посты пользователя {{ user }}</a>
               </li>
               {% for post in posts %}

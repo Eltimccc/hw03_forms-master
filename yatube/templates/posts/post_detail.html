@@ -1,30 +1,32 @@
 <!DOCTYPE html>
 {% extends "base.html" %}
-{% block title %}Просмотр записи {% endblock %}
-{% block header %}Просмотр записи {% endblock %}
+{% block title %}{{ post |truncatechars:30 }} {% endblock %}
+{% block header %}Страница ПОСТА {% endblock %}
 {% block content %}
     <main>
       <div class="row">
         <aside class="col-12 col-md-3">
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
-              Дата публикации: {{ post.pub_date }}<!-- 31 июля 1854 --> 
+              Дата публикации: {{ post.pub_date }}
             </li>
             <!-- если у поста есть группа -->   
               <li class="list-group-item">
-                Группа: <!-- Название группы -->
-                <a href="<!-- -->">
-                  все записи группы
+                Группа: {{ post.group }}<p></p>
+                {% if post.group %}   
+                <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы
+                </a>
+                {% endif %} 
                 </a>
               </li>
               <li class="list-group-item">
-                Автор: <!--Лев Толстой-->
+                Автор: {{ post.author.get_full_name }}
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center">
-              Всего постов автора:  <span ><!-- --></span>
+              Всего постов автора:  <span >{{ post_cnt }}</span>
             </li>
             <li class="list-group-item">
-              <a href="<!-- -->">
+              <a href= ''>все посты пользователя {{ user }}</a>
                 все посты пользователя
               </a>
             </li>
@@ -32,17 +34,7 @@
         </aside>
         <article class="col-12 col-md-9">
           <p>
-           <!--
-            [Фокшаны.] Еще переходъ до Фокшанъ, во время котораго я ѣхалъ съ 
-            Монго. Человѣкъ пустой, но съ твердыми, хотя и ложными убѣжденіями.
-            Генерал[у] по этому должно быть случаю, угодно было спрашивать о мое
-            мъ здоровьи.
-            Свинья! К[о]вырялъ носъ и ничего не написалъ — вотъ 2 упрека за 
-            нын[ѣшній]     день. Послѣдній упрекъ становится слишкомъ частъ, 
-            хотя походъ и можетъ служить въ немъ отчасти извиненіемъ. 
-            Отношенія мои съ товарищами становятся такъ пріятны, что мнѣ 
-            жалко бросить штабъ. Здоровье кажется (2) лучше. 
-           --> 
+            {{ post }}
           </p>
         </article>
       </div> 
