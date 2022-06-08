@@ -1,7 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from pickle import FALSE
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from .models import Post, Group
+from .forms import PostForm
 
 
 def index(request):
@@ -55,3 +57,21 @@ def post_detail(request, post_id):
         'post_cnt' : post_cnt,
     }
     return render(request, 'posts/post_detail.html', context) 
+
+
+def post_create(request):
+    error = ''
+    if request.method == 'POST':
+        Post.author = request.User
+        if form.is_valid():
+            Post.save()
+            return redirect("index")
+        else:
+            error = 'Ошибка при заполнении'
+    form = PostForm()
+    data = {
+        'form':form,
+        'error': error
+    }
+
+    return render(request, 'posts/create_post.html/', data)
