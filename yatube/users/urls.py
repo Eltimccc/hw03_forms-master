@@ -2,7 +2,6 @@
 # Импортируем из приложения django.contrib.auth нужный view-класс
 from django.contrib.auth.views import (
                                 LoginView,
-                                RegisterUser,
                                 LogoutView, 
                                 PasswordResetView, 
                                 PasswordResetDoneView, 
@@ -14,6 +13,7 @@ from django.contrib.auth.views import (
 from django.urls import path
 
 from . import views
+
 
 app_name = 'users'
 
@@ -33,7 +33,7 @@ urlpatterns = [
     ),
     path(
         'register/',
-        RegisterUser.as_view(
+        views.RegisterUser.as_view(
         template_name='users/register.html'),
         name='register'
     ),    

@@ -17,12 +17,9 @@
     {% include 'includes/header.html' %}
     <title>{% block title %} My title {% endblock %}</title>
   </head>
-  <header><h1>
     <main class="container">
-      {% block header %} {% endblock %}
-    </h1></header>
+    <h1> {% block header %} {% endblock %} </h1>
   <body>
-    <main class="container">
       {% block content %} {% endblock%}
     </main>
     <!-- Использованы классы бустрапа: -->

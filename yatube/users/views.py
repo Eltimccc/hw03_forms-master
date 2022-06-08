@@ -1,8 +1,11 @@
 # users/views.py
+from atexit import register
 from django.shortcuts import render
 
 # Импортируем CreateView, чтобы создать ему наследника
 from django.views.generic import CreateView
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.dates import DateMixin
 
 # Функция reverse_lazy позволяет получить URL по параметрам функции path()
 # Берём, тоже пригодится
@@ -18,3 +21,8 @@ class SignUp(CreateView):
     success_url = reverse_lazy('posts:index')
     template_name = 'users/signup.html'
 
+class RegisterUser(DateMixin, CreateView):
+    form_class = UserCreationForm
+    template_name = 'users/register.html'
+    success_url = reverse_lazy('login')
+    
