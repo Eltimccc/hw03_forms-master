@@ -1,4 +1,4 @@
-from pickle import FALSE
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.shortcuts import render
@@ -59,19 +59,28 @@ def post_detail(request, post_id):
     return render(request, 'posts/post_detail.html', context) 
 
 
+@login_required
 def post_create(request):
-    error = ''
-    if request.method == 'POST':
-        Post.author = request.User
-        if form.is_valid():
-            Post.save()
-            return redirect("index")
-        else:
-            error = 'Ошибка при заполнении'
-    form = PostForm()
-    data = {
-        'form':form,
-        'error': error
-    }
+    form = PostForm(request.POST or None)
+    if form.is_valid():
+        new_post = form.save(commit=False)
+        new_post.author = request.user
+        new_post.save()
+        return redirect('posts:profile', username=request.user)
+    context = {'form': form,
+        }
+    return render(request, 'posts/create_post.html', context)
 
-    return render(request, 'posts/create_post.html/', data)
+
+@login_required
+def post_edit(request, post_id):
+    template = 'posts/create_post.html'
+    post = get_object_or_404(Post, pk=post_id)
+    if post.author != request.user:
+        return redirect('posts:post_detail', post_id=post_id)
+    form = PostForm(request.POST or None, instance=post)
+    if form.is_valid():
+        form.save()
+        return redirect('posts:post_detail', post_id)
+    return render(request, template,
+                  {'form': form})

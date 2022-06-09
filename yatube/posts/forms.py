@@ -14,6 +14,6 @@ class PostForm(ModelForm):
             }),
             "group": Select(attrs={
                 'class':'form-control',
-                'placeholder': 'Введите текст статьи',
+                'placeholder': 'Выберите группу', # Не работает)
             }),
         }
