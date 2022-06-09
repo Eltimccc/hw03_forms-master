@@ -21,7 +21,7 @@ urlpatterns = [
     views.post_detail,
         name='post_detail'),
     # Создание поста
-    path('posts/create/',
+    path('create/',
     views.post_create,
         name='post_create'),
     # Редактирование поста
