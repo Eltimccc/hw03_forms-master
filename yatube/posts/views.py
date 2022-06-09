@@ -2,9 +2,11 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.shortcuts import render
-from .models import Post, Group
+from .models import Post, Group, User
 from .forms import PostForm
 
+
+COUNT_POSTS = 10
 
 def index(request):
     post_list = Post.objects.all().order_by('-pub_date')
@@ -32,18 +34,14 @@ def group_posts(request, slug):
 
 
 def profile(request, username):
-    post_list = Post.objects.filter(author__username=username).order_by('-pub_date')
-    author = author__username=username
-    paginator = Paginator(post_list, 10)
+    author = get_object_or_404(User, username=username)
+    post_list = author.posts.select_related('author').all()
+    paginator = Paginator(post_list, COUNT_POSTS)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    # Здесь код запроса к модели и создание словаря контекста
     context = {
-        'posts': Post.objects.filter(author__username=username)[:10],
-        'post_count' : Post.objects.filter(author__username=username).count(),
         'page_obj': page_obj,
-        'user_post' : Post.objects.filter(author__username=username),
-        'author': author
+        'author': author,
     }
     return render(request, 'posts/profile.html', context)
 
@@ -83,4 +81,4 @@ def post_edit(request, post_id):
         form.save()
         return redirect('posts:post_detail', post_id)
     return render(request, template,
-                  {'form': form})
+                  {'form': form,})
